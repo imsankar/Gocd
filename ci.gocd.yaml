@@ -4,6 +4,7 @@ pipelines:
     group: lambda_pipeline
     environment_variables:
       JAVA_HOME: /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
+      M2_HOME: usr/share/apache-maven
     materials:
       code:  # this is the name of material
         # says about type of material and url at once
