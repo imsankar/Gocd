@@ -23,6 +23,9 @@ pipelines:
                - exec: # indicates type of task
                    working_directory: Maven
                    command: mvn clean package
+                   arguments:
+                    - clean
+                    - package
               artifacts:
                - build:
                    source: Maven/target/*.jar
