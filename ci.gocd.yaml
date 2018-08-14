@@ -1,0 +1,62 @@
+# simple.gocd.yaml
+pipelines:
+  YAML_build:
+    group: yaml_pipelines
+    environment_variables:
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0_181
+    materials:
+      code:  # this is the name of material
+        # says about type of material and url at once
+        git: https://github.com/imsankar/YAML.git
+        destination: Maven
+        materials:
+      terraform:  # this is the name of material
+        # says about type of material and url at once
+        git: https://github.com/imsankar/Terraform.git
+        destination: terraform
+    stages:
+      - build: 
+          jobs:
+            Maven: 
+              tasks:
+               - exec: # indicates type of task
+                   working_directory: Maven
+                   command: mvn clean package
+              artifacts:
+               - build:
+                   source: Maven/target/*.jar
+                   destination: binaries
+               - build:
+                   source: terraform/*.tf
+                   destination: binaries #published artifacts
+      
+      - terraform_plan:
+          jobs:
+            terraform_plan:
+              tasks:
+               - fetch:
+                   pipeline: YAML_build
+                   stage: build
+                   job: Maven
+                   source: binaries/
+                   destination: binaries/ #fetching artifacts
+               - exec:
+                  command: echo terraform plan
+      - terraform_apply:
+          approval:
+            type: manual
+            roles:
+                - administrator
+            users:
+                - administrator
+          jobs:
+            terraform_apply:
+              tasks:
+               - fetch:
+                   pipeline: YAML_build
+                   stage: build
+                   job: Maven
+                   source: binaries/
+                   destination: binaries/ #fetching artifacts
+               - exec:
+                  command: ec terraform apply           
