@@ -22,7 +22,7 @@ pipelines:
               tasks:
                - exec: # indicates type of task
                    working_directory: Maven
-                   command: mvn clean package
+                   command: mvn 
                    arguments:
                     - clean
                     - package
