@@ -1,7 +1,7 @@
 # simple.gocd.yaml
 pipelines:
   YAML_build:
-    group: lambda_pipeline
+    group: lambda_pipelines
     environment_variables:
       JAVA_HOME: /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
       M2_HOME: /var/lib/apache-maven
