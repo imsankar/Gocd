@@ -3,7 +3,7 @@ pipelines:
   YAML_build:
     group: lambda_pipelines
     environment_variables:
-      JAVA_HOME: /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
+      JAVA_HOME: /usr/lib/jvm/java-1.8.0
       M2_HOME: /var/lib/apache-maven
     materials:
       code:  # this is the name of material
